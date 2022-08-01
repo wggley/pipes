@@ -1,0 +1,72 @@
+.game-data {
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 0 auto 10px auto;
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    gap: 10px
+}
+
+.game-message {
+    color: #505adf;
+    margin: 8px;
+}
+
+.level {
+    color: #ef8f0c;
+}
+
+.verifications {
+    color: #dd1608;
+}
+
+.verify {
+    text-transform: uppercase;
+    border: 1px solid #61dafb;
+    color: #61dafb;
+    background-color: #282c34;
+    border-radius: 5px;
+}
+
+.verify:hover {
+    border: 1px solid #282c34;
+    color: #282c34;
+    background-color: #61dafb;
+}
+
+.tileset {
+    border: 1px solid #61dafb;
+    width: max-content;
+    height: auto;
+    margin: auto;
+    color: #61dafb;
+    text-align: left;
+    cursor: pointer;
+    overflow: auto;
+    font-size: 8px;
+}
+
+.row {
+    display: flex;
+}
+
+.row:hover {
+    color: rgb(10, 216, 10);
+}
+
+.tile:hover {
+    color: #505adf;
+}
+
+.level-1 {
+    font-size: 64px;
+}
+
+.level-2 {
+    font-size: 24px;
+}
+
+.level-3 {
+    font-size: 16px;
+}
