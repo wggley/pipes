@@ -14,6 +14,7 @@ function Body() {
     useEffect(() => {
         const gameLevel = localStorage.getItem('game_level')
 
+        setGameMessage('Loading...')
         if (gameLevel) {
             socket.sendMessage(`new ${gameLevel}`)
             setGameLevel(gameLevel)
@@ -26,6 +27,7 @@ function Body() {
 
     useEffect(() => {
         if (socket && socket.lastMessage) {
+            setGameMessage(' ')
             switch (socket.lastMessage.data) {
                 case 'verify: Only 10 verifications allowed per attempt.':
                     setGameMessage('Game over.')
@@ -33,14 +35,21 @@ function Body() {
                 case 'verify: Incorrect.':
                     setGameMessage(`Incorrect!`)
                     break
-                case 'verify: Correct.':
-                    setGameMessage('You won this level!')
-                    break
                 case 'new: OK':
                     socket.sendMessage('map')
                     break
                 default:
-                    if (socket.lastMessage.data.search(/map:\n/, '') > -1) {
+                    if (socket.lastMessage.data.search(/verify: Correct!/) > -1) {
+                        setGameMessage('Loading...')
+                        if (gameLevel) {
+                            let gameLevelCurrent = parseInt(gameLevel) + 1
+                            socket.sendMessage(`new ${gameLevelCurrent}`)
+                            setGameLevel('' + gameLevelCurrent)
+                            setGameVerifications(12)
+                            setVerifyEnabled(false)
+                        }
+                    }
+                    else if (socket.lastMessage.data.search(/map:\n/) > -1) {
                         let result = socket.lastMessage.data.replace(/map:\n/, '').split(/\n/)
                         result.pop()
                         setTileSet(result.map((x: string) => {
@@ -53,12 +62,14 @@ function Body() {
     }, [socket.lastMessage])
 
     const rotateTile = (x: number, y: number) => {
+        setGameMessage('Loading...')
         socket.sendMessage(`rotate ${x} ${y}`)
         socket.sendMessage('map')
         setVerifyEnabled(true)
     }
 
     const verify = () => {
+        setGameMessage('Loading...')
         socket.sendMessage('verify')
         if (gameVerifications > 0) {
             setGameVerifications(gameVerifications - 1)

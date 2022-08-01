@@ -11,6 +11,7 @@
 .game-message {
     color: #505adf;
     margin: 8px;
+    height: 20px;
 }
 
 .level {
@@ -37,14 +38,15 @@
 
 .tileset {
     border: 1px solid #61dafb;
-    width: max-content;
-    height: auto;
+    width: 1600px;
+        height: 800px;
     margin: auto;
     color: #61dafb;
     text-align: left;
     cursor: pointer;
     overflow: auto;
     font-size: 8px;
+    padding-bottom: 20px;
 }
 
 .row {
@@ -61,12 +63,18 @@
 
 .level-1 {
     font-size: 64px;
+    width: 512px;
+        height: 512px;
 }
 
 .level-2 {
     font-size: 24px;
+    width: 600px;
+        height: 480px;
 }
 
 .level-3 {
     font-size: 16px;
+    width: 800px;
+        height: 800px;
 }
