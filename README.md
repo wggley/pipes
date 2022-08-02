@@ -1,6 +1,6 @@
 # Pipes Game
 
-You can run this game on [Netlify](https://admirable-lokum-ed2cb3.netlify.app/)
+You can run this game on [Netlify](https://wggley-pipes.netlify.app).
 
 ## Level passwords obtained
 
