@@ -1,5 +1,7 @@
 # Pipes Game
 
+Pipes game developed for [Evolution Gaming Recruitment test](https://github.com/evolution-gaming/recruitment/blob/master/frontend/Pipes.md).
+
 You can run this game on [Netlify](https://wggley-pipes.netlify.app).
 
 ## Level passwords obtained
