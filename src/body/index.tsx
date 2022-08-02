@@ -5,7 +5,7 @@ import Socket from '../socket'
 function Body() {
     const socket = Socket()
 
-    const [gameLevel, setGameLevel] = useState<string>()
+    const [gameLevel, setGameLevel] = useState<number>()
     const [gameVerifications, setGameVerifications] = useState<number>(12)
     const [verifyEnabled, setVerifyEnabled] = useState<boolean>(false)
     const [gameMessage, setGameMessage] = useState<string>()
@@ -14,14 +14,10 @@ function Body() {
     useEffect(() => {
         const gameLevel = localStorage.getItem('game_level')
 
-        setGameMessage('Loading...')
         if (gameLevel) {
-            socket.sendMessage(`new ${gameLevel}`)
-            setGameLevel(gameLevel)
+            reset(parseInt(gameLevel))
         } else {
-            socket.sendMessage('new 1')
-            localStorage.setItem('game_level', '1')
-            setGameLevel('1')
+            reset(1)
         }
     }, [])
 
@@ -40,14 +36,7 @@ function Body() {
                     break
                 default:
                     if (socket.lastMessage.data.search(/verify: Correct!/) > -1) {
-                        setGameMessage('Loading...')
-                        if (gameLevel) {
-                            let gameLevelCurrent = parseInt(gameLevel) + 1
-                            socket.sendMessage(`new ${gameLevelCurrent}`)
-                            setGameLevel('' + gameLevelCurrent)
-                            setGameVerifications(12)
-                            setVerifyEnabled(false)
-                        }
+                        reset((gameLevel ?? 1) + 1)
                     }
                     else if (socket.lastMessage.data.search(/map:\n/) > -1) {
                         let result = socket.lastMessage.data.replace(/map:\n/, '').split(/\n/)
@@ -76,12 +65,25 @@ function Body() {
         }
     }
 
+    const reset = (gamelevelReset?: number) => {
+        if (!gamelevelReset) {
+            gamelevelReset = gameLevel
+        }
+        setGameMessage('Loading...')
+        socket.sendMessage(`new ${gamelevelReset}`)
+        localStorage.setItem('game_level', '' + gamelevelReset)
+        setGameLevel(gamelevelReset)
+        setGameVerifications(12)
+        setVerifyEnabled(false)
+    }
+
     return (
         <>
             <div className="game-data">
                 <div className="level">Level {gameLevel}</div>
                 <div className="verifications">Verifications {gameVerifications}</div>
                 {verifyEnabled && <button type="button" className="verify" onClick={() => verify()}>Verify</button>}
+                <button type="button" className="reset" onClick={() => reset()}>Reset</button>
             </div>
             <div className="game-message">
                 {gameMessage}
@@ -101,4 +103,4 @@ function Body() {
     )
 }
 
-export default Body;
+export default Body
