@@ -1,6 +1,26 @@
-# Getting Started with Create React App
+# Pipes Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can run this game on [Netlify](https://admirable-lokum-ed2cb3.netlify.app/)
+
+## Level passwords obtained
+
+- JustWarmingUp
+
+## Known limitations
+
+- Won't scale well in levels beyond 3
+- Stutters when rendering levels beyond 3
+- Level 5 and 6 are impossible to play using this solution and it could be better managed if we previously know every kind of pipe so when rotating, it rotates on client and just update server side not needing to get map again
+- It full re-renders map on every click
+
+## Key design decisions
+
+Using:
+- React
+- Typescript
+- [Create React App](https://github.com/facebook/create-react-app)
+- [react-use-websocket](https://github.com/robtaussig/react-use-websocket)
+- Create-react-App basic styling look and feel so it appears we are playing an old arcade or atari game
 
 ## Available Scripts
 
